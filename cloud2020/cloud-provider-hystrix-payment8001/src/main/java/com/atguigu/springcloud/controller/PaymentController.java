@@ -40,29 +40,16 @@ public class PaymentController {
         log.info("____________"+result);
         return result;
     }
-    /**
-     * 服务熔断
-     */
-    //=========服务熔断
-    @HystrixCommand(fallbackMethod = "paymentCircuitBreaker_fallback",commandProperties = {
-            @HystrixProperty(name = "circuitBreaker.enabled",value = "true"),
-            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold",value = "10"),
-            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds",value = "10000"),
-            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage",value = "60"),
-    })
+
+    @GetMapping("/payment/circuit/{id}")
     public String paymentCircuitBreaker(@PathVariable("id") Integer id)
     {
-        if(id < 0)
-        {
-            throw new RuntimeException("******id 不能负数");
-        }
-        String serialNumber = IdUtil.simpleUUID();
+        String result = paymentService.paymentCircuitBreaker(id);
+        log.info("****result: "+result);
+        return result;
+    }
 
-        return Thread.currentThread().getName()+"\t"+"调用成功，流水号: " + serialNumber;
-    }
-    public String paymentCircuitBreaker_fallback(@PathVariable("id") Integer id)
-    {
-        return "id 不能负数，请稍后再试，/(ㄒoㄒ)/~~   id: " +id;
-    }
+
+
 
 }
