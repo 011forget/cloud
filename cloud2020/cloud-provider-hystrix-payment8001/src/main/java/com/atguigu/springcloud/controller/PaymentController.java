@@ -20,6 +20,9 @@ import javax.annotation.Resource;
 @RestController
 @Slf4j
 public class PaymentController {
+    /**
+     * 添加测试
+     */
     @Resource
     PaymentService paymentService;
     @Value("${server.port}")
