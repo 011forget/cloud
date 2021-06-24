@@ -20,7 +20,7 @@ import javax.annotation.Resource;
 @DefaultProperties(defaultFallback = "globalPaymentFallbackMethod")
 public class OrderHystirxController
 {
-    int a = 1;
+    int a = 11111111;
     @Resource
     private PaymentHystrixService paymentHystrixService;
 
